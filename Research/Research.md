@@ -21,3 +21,5 @@ Cuda Programming - https://docs.nvidia.com/cuda/cuda-programming-guide/01-introd
 How to build a Database - https://cstack.github.io/db_tutorial/parts/part1.html
 GPU Database Systems - https://www.vldb.org/pvldb/vol17/p441-cao.pdf?utm_source=chatgpt.com
 SQL Performance Explained - file:///C:/Users/zuria/Downloads/sql-performance-explained_compress.pdf
+Writting sqllite clone in C - https://github.com/cstack/db_tutorial
+
