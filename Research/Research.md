@@ -10,10 +10,14 @@ What do I need to know?
     Database fundamentals
     GPU and Cuda Fundamentals
     GPU Memory Architecture
+
 What is a Database engine going to do? 
 What version of Cuda will I be writting in?
 How do we store Pictures? 
 How is a Cuda Database enginer better than a CPU based Database engine? 
+When we insert into our database how is storage being handled? Have we pre allocated a certain amount have we computed how much we will need in addition to some?
+How does GPU make adding,moving,delting and mainly finding data quicker? 
+
 
 
 # Documents Readings
