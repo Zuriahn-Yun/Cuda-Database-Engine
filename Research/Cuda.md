@@ -6,7 +6,7 @@ Do we still want to employ the CPU in order to do some tasks that require thread
 # Vocab
 Heterogeneous systems 
 
-# Introduction to CUDA
+# Programming in Cuda
 
 
 
