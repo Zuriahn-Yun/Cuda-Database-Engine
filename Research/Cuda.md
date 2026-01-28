@@ -11,6 +11,8 @@ ISA - Instruction Set Architecture
 Cubins - 
 Fatbins - 
 Library Binarys - Pre Compiled non readable code that is used to perform specific tasks.
+Memory coalescing - When a warp requests memory the gpu is faster if those threads are acccesing neighboring memory addresses.
+Warp - A group of 32 Threads
 
 
 # Compute Compatibility 
