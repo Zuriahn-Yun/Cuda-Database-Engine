@@ -1,27 +1,26 @@
-#ifndef SCHEMA_HPP
-#define SCHEMA_HPP
-
+// Schema.hpp
+#pragma once
 #include <string>
 #include <vector>
 
-// This tells the engine what KIND of data we are looking at
-enum class ColumnType {
-    INT,
-    FLOAT
-};
+enum class DataType { INT, FLOAT };
 
-// This is the blueprint for a single "Column" of data
-struct ColumnSchema {
+struct Column {
     std::string name;
-    ColumnType type;
-    size_t length;     // Number of rows
-    void* dataPtr;     // The "Handle" or address in memory
+    DataType type;
+    size_t rowCount;
+    // Using Unified Memory is importnat so we dont have to keep track of two pointers for each Column
+    void* data; // Points to Unified Memory (Managed by DeviceManager, Unified memory allows the CPU and GPU to use the same pointer)
+
+    Column(std::string n, DataType t, size_t rows) 
+        : name(n), type(t), rowCount(rows), data(nullptr) {}
 };
 
-// This represents a "Table" (A collection of columns)
-struct TableSchema {
+struct Table {
     std::string tableName;
-    std::vector<ColumnSchema> columns;
+    std::vector<Column> columns;
+    
+    void addColumn(std::string name, DataType type, size_t rows) {
+        columns.emplace_back(name, type, rows);
+    }
 };
-
-#endif
