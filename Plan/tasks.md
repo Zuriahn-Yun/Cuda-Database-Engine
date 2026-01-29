@@ -3,8 +3,8 @@
 ### Phase 1: Foundation & Memory Management
 *Goal: Build the Smart Allocator and the C++ structure to handle dual-hardware execution.*
 - [] **Architecture Design**
-    - [ ] Define the Columnar Storage Format (optimized for GPU memory coalescing).
-    - [ ] Create the `DeviceManager` class to detect CUDA capability and available VRAM.
+    - [x] Define the Columnar Storage Format (optimized for GPU memory coalescing).
+    - [x] Create the `DeviceManager` class to detect CUDA capability and available VRAM.
 - [ ] **The Decision Engine (CPU vs. GPU)**
     - [ ] Implement a cost-estimation heuristic: $Time_{Transfer} + Time_{GPU\_Exec} < Time_{CPU\_Exec}$.
     - [ ] Logic to handle small datasets on CPU to avoid PCIe overhead.

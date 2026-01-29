@@ -1,5 +1,6 @@
-#include "Schema.hpp"
 #include <cuda_runtime.h>
+#include <iostream>
+#include "Schema.hpp"
 
 class DeviceManager {
 public:
@@ -24,4 +25,20 @@ public:
     bool requestGPUExecution(size_t rows) {
         return rows > 10000; // Your Phase 1 heuristic
     }
+
+    // Annihalte the Database
+    void clearTable(Table& table) {
+    std::cout << "[CLEANUP] Freeing VRAM for table: " << table.tableName << std::endl;
+    
+    for (auto& col : table.columns) {
+        if (col.data != nullptr) {
+            cudaFree(col.data); // Wipe the GPU/Unified memory
+            col.data = nullptr;
+        }
+    }
+    
+    table.columns.clear(); // Clear the column metadata
+    table.row_count = 0;   // Reset row count
+    std::cout << "[CLEANUP] Table wiped successfully." << std::endl;
+}
 };

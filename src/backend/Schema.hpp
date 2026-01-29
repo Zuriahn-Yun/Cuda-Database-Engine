@@ -9,7 +9,6 @@ struct Column {
     std::string name;
     DataType type;
     size_t rowCount;
-    // Using Unified Memory is importnat so we dont have to keep track of two pointers for each Column
     void* data; // Points to Unified Memory (Managed by DeviceManager, Unified memory allows the CPU and GPU to use the same pointer)
 
     Column(std::string n, DataType t, size_t rows) 
@@ -19,7 +18,7 @@ struct Column {
 struct Table {
     std::string tableName;
     std::vector<Column> columns;
-    
+    size_t row_count;
     void addColumn(std::string name, DataType type, size_t rows) {
         columns.emplace_back(name, type, rows);
     }

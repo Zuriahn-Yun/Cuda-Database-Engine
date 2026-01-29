@@ -10,6 +10,7 @@
 
 #include "Schema.hpp"
 #include "DeviceManager.cu"
+#include "ViewDatabase.hpp"
 
 // Check for Cuda GPU and Cuda Support
 #ifdef __CUDACC__
@@ -62,7 +63,7 @@ void checkHardware(){
                     
                     size_t free, total;
                     cudaMemGetInfo(&free, &total);
-                    std::cout << "    - VRAM: " << total / (1024 * 1024) << " MB" << std::endl;
+                    std::cout << "    - VRAM: " << total / (1024 * 1024) << " MB (" << static_cast<double>(total) / (1024 * 1024 * 1024) << " GB)" << std::endl;
                     // Frequency at which the VRAM Operates
                     std::cout << "    - Memory Clock Rate: " << prop.memoryClockRate / 1000 << " MHz" << std::endl;
                     // Larger the Width allows the GPU to move more bits of data simultaneously in a single clock cycle
@@ -82,19 +83,33 @@ int main() {
 
     checkHardware();
     DeviceManager manager;
+    
+    // Create the table (Assuming you updated Table to take row_count in constructor)
     Table users;
-    
-    // 1. Define structure
-    users.addColumn("age", DataType::INT, 1000000);
-    
-    // 2. Allocate via backend
+    users.tableName = "Users";
+    users.row_count = 100; // Let's start small for testing
+
+    // 1. Define and Allocate
+    users.addColumn("age", DataType::INT, users.row_count);
     manager.allocateColumn(users.columns[0]);
-    
-    // 3. Decision Engine check
-    if(manager.requestGPUExecution(users.columns[0].rowCount)) {
-        std::cout << "Optimized for GPU execution." << std::endl;
+
+    // 2. Populate with Dummy Data (CPU Side)
+    // We cast the void* to an int* because we know "age" is DataType::INT
+    int* ageData = (int*)users.columns[0].data;
+    for (size_t i = 0; i < users.row_count; ++i) {
+        ageData[i] = 20 + (i % 30); // Fills ages 20 through 49
     }
+
+    // 3. Test the ViewDatabase
+    // Since we made the methods static in the previous example:
+    ViewDatabase::inspectTable(users);
     
+    // Check specific column status
+    ViewDatabase::checkMemoryLocation(users.columns[0]);
+
+    // Cleanup (Important for Phase 1 Memory Management!)
+    manager.freeColumn(users.columns[0]);
+
     return 0;
 }
 
