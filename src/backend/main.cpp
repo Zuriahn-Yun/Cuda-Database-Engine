@@ -1,6 +1,9 @@
 #include <string> // To add String anmes
 #include <vector>  // To hold lists of data
 // the nvcc compiler is much slower than c++ compiler
+// to recognize this file you need to run this with nvcc compiler
+// nvcc -x cu main.cpp -o main -lcudart
+// ./main 
 #include <iostream> 
 
 // Check for Cuda GPU and Cuda Support
@@ -39,6 +42,8 @@ void checkHardware(){
             // Count Number of GPU's
             // Currently only Support 1 GPU
             int deviceCount = 0;
+            std::cout << "Hello World" << std::endl;
+
             cudaError_t err = cudaGetDeviceCount(&deviceCount);
             // 
             if (err != cudaSuccess || deviceCount == 0) {

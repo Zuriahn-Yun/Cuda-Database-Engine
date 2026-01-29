@@ -1,7 +1,7 @@
 # Questions
 What will the GPU do better than the CPU since it has thousands of threads. \
 How can we optimize the GPU to use all of its threads to move and store data as quickly as possible? \
-Do we still want to employ the CPU in order to do some tasks that require threads that move much quicker? Or do we only want to use the GPU? \
+Do we still want to employ the CPU in order to do some tasks that require threads that move much quicker? Or do we only want to use the GPU?
 
 # Vocab
 Heterogeneous systems - Combine GPUS, CPU and other processors into one system to optimize performance
@@ -27,10 +27,6 @@ Which features might be useful for this project? Why?
 Cuda Pipelines and accelerated Pipelines? 
 https://docs.nvidia.com/cuda/cuda-programming-guide/04-special-topics/pipelines.html#pipelines
 
-
-# Cuda Runtime API and Cuda Driver API
----
-
 # Cuda PTX (Parallel Thread Execution)
 What is this? 
 High level assembly language for GPU's
@@ -44,8 +40,6 @@ Do we need to know more about this? Is this important? Do we want our projects t
 # Cubins and Fatbins
 C++ is compiled into PTX and then PTX is compiled into binary for the GPU. GPU binary is collaed Cubin.
 How is Cubin different from Tradional binary? 
-
-
 
 # Other Referenced Pages
 https://github.com/NVIDIA/accelerated-computing-hub

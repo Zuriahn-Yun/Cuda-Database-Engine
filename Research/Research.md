@@ -31,5 +31,3 @@ Writting sqllite clone in C - https://github.com/cstack/db_tutorial
 # Cuda C++ Tutorial
 https://github.com/NVIDIA/accelerated-computing-hub/blob/main/tutorials/cuda-cpp/README.md
 
-Exercise 1 
-https://colab.research.google.com/github/NVIDIA/accelerated-computing-hub/blob/main/tutorials/cuda-cpp/notebooks/01.02-Execution-Spaces/01.02.02-Exercise-Annotate-Execution-Spaces.ipynb
