@@ -1,7 +1,5 @@
 #pragma once
-#include <iostream>
-#include <iomanip>
-#include <vector>
+#include "Common.hpp"
 #include "Schema.hpp"
 
 class ViewDatabase {

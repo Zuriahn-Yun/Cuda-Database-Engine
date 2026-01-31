@@ -1,16 +1,15 @@
-// This file contains a Hardware check
+// This file contains a Hardware check  
 
-#include <string> 
-#include <vector>  
 // the nvcc compiler is much slower than c++ compiler
 // to recognize this file you need to run this with nvcc compiler
 // nvcc -x cu main.cpp -o main -lcudart
-// ./main 
-#include <iostream> 
+// ./main
 
-#include "Schema.hpp"
+#include "Common.hpp"
 #include "DeviceManager.cu"
+#include "Schema.hpp"
 #include "ViewDatabase.hpp"
+#include "DataLoader.hpp"
 
 // Check for Cuda GPU and Cuda Support
 #ifdef __CUDACC__
@@ -84,24 +83,15 @@ int main() {
     checkHardware();
     DeviceManager manager;
     
-    // Create the table (Assuming you updated Table to take row_count in constructor)
+    // Create the table
     Table users;
     users.tableName = "Users";
-    users.row_count = 100; // Let's start small for testing
+    DataLoader myloader;
 
-    // 1. Define and Allocate
-    users.addColumn("age", DataType::INT, users.row_count);
-    manager.allocateColumn(users.columns[0]);
+    myloader.load("../../Data/train.csv",users,manager);
+    myloader.reportMemoryUsage(users,myloader);
 
-    // 2. Populate with Dummy Data (CPU Side)
-    // We cast the void* to an int* because we know "age" is DataType::INT
-    int* ageData = (int*)users.columns[0].data;
-    for (size_t i = 0; i < users.row_count; ++i) {
-        ageData[i] = 20 + (i % 30); // Fills ages 20 through 49
-    }
-
-    // 3. Test the ViewDatabase
-    // Since we made the methods static in the previous example:
+    // Test the ViewDatabase
     ViewDatabase::inspectTable(users);
     
     // Check specific column status
