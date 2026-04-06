@@ -62,6 +62,8 @@ public:
                     gpuData[row] = dictionaries[col][val];
                 }
             }
+            // Async prefetch: start migrating this column to GPU while the next column is filled on CPU
+            manager.prefetchColumn(table.columns[col]);
         }
         std::cout << "[SUCCESS] Loaded " << table.row_count << " rows with Dictionary Encoding." << std::endl;
     }

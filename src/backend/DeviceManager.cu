@@ -23,6 +23,15 @@ public:
         if (col.data) cudaFree(col.data);
     }
     
+    // Async prefetch: start migrating column data to GPU while CPU continues other work
+    void prefetchColumn(Column& col) {
+        if (!col.data || col.rowCount == 0) return;
+        size_t size = col.rowCount * (col.type == DataType::INT ? sizeof(int) : sizeof(float));
+        int device;
+        cudaGetDevice(&device);
+        cudaMemPrefetchAsync(col.data, size, device, 0);
+    }
+
     // The Decision Engine logic
     bool requestGPUExecution(size_t rows) {
         return rows > 10000; // Your Phase 1 heuristic
